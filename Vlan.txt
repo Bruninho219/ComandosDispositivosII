@@ -1,0 +1,24 @@
+enable
+  configute terminal
+    no ip domain-lookup                                          //COMANDO DE DEUS
+    vlan VLAN_ID                                                 //cria vlan
+      name VLAN_NAME                                             //define o nome para a vlan
+      exit
+    interface ID_INTERFACE                                       //configura interface (não trunk)
+      switchport mode access                                     //ativa modo access da porta
+      switchport access vlan VLAN_ID                             //ativa a vlan na interface escolhida
+      no shutdown                                                //ativa interface
+      exit
+    interface ID_INTERFACE                                       //configura interface (trunk)
+      switchport mode trunk                                      //ativa modo trunk da porta
+      switchport trunk allowed vlan VLAN_ID,VLAN_ID              //ativa trunk para as vlans informadas, porém, terá que informar qual é a vlan nativa
+                                                                   //Se não ativa, tadas as redes podem passar
+      switchport trunk native vlan VLAN_ID                       //especifica qual é a vlan nativa (opcional)
+      no shutdown                                                //ativa interface
+      exit
+    interface vlan VLAN_ID                                       //configura a vlan escolhida
+      ip address IP_SWITCH MASK_REDE                             //define ip para a interface da vlan
+      no shutdown                                                //ativa vlan
+      exit
+    end
+  wr                                                             //salva as configurações

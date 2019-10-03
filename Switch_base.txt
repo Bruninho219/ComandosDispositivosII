@@ -47,7 +47,7 @@ enable
       no shutdown                                                //ativa vlan
       exit
     end
-  wr
+  wr                                                             //salva as configurações
     
 
 NOME_HOST:      nome host (S0)
