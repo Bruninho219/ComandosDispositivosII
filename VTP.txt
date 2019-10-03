@@ -1,0 +1,7 @@
+enable
+  configure terminal
+    no ip domain-lookup                                          //COMANDO DE DEUS
+    vtp mode client                                              //Configura vtp para mode cliente
+    vtp mode server                                              //Configura vtp para mode server
+    vtp domain NAME_DOMINIO                                      //Configura o nome de dominio vtp
+    vtp password SENHA_DOMINIO                                   //Configura a senha vtp

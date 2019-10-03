@@ -1,0 +1,46 @@
+enable
+  configute terminal
+    no ip domain-lookup
+    hostname SW_Central
+    
+    vlan 10
+      name ADM
+      exit
+    vlan 20
+      name RH
+      exit
+    vlan 30
+      name Comercial
+      exit
+    vlan 99
+      name Gerencia
+      exit
+    
+    interface g0/1
+      switchport mode trunk
+      switchport trunk native vlan 99
+      switchport trunk allowed vlan 10,20,30,99
+      no shutdown
+      exit
+    interface g0/2
+      switchport mode trunk
+      switchport trunk native vlan 99
+      switchport trunk allowed vlan 10,20,30,99
+      no shutdown
+      exit
+    interface f0/1
+      switchport mode trunk
+      switchport native vlan 99
+      switchport allowed vlan 10,20,30,99
+      no shutdown
+      exit
+    interface f0/2
+      switchport mode access
+      switchport access vlan 99
+      no shutdown
+      exit
+    
+    interface vlan 99
+      ip address 10.0.0.3 255.255.255.0
+      no shutdown
+      exit

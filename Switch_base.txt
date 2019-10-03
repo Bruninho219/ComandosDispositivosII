@@ -1,0 +1,68 @@
+enable
+  configute terminal
+    no ip domain-lookup                                          //COMANDO DE DEUS
+    hostname NOME_HOST                                           //nome do host
+    service password-encryption                                  //criptografa as senhas
+    ip domain-name NAME_DOMAIN                                   //define o nome do dominio
+    crypto key generate rsa                                      //gera chave rsa
+      CHAVE_RSA                                                  //comprimento da chave rsa
+    enable secret SENHA_CONFG                                    //habilita senha para enable
+    username NAME_USER password SENHA_USER                       //cria usuário ssh
+    banner motd #                                                //cria banner
+      BANNER_LOGIN                                               //texto do banner
+    vtp mode client                                              //configura vtp para mode cliente
+                                                                   //em switches configurados modo cliente, não é permitida a criação de vlans
+                                                                   //pois elas serão importadas ao configurar o tronco com o servidor
+    vtp mode server                                              //configura vtp para mode server
+    vtp domain NAME_DOMINIO                                      //configura o nome de dominio vtp
+    vtp password SENHA_DOMINIO                                   //configura a senha vtp
+    ip default-gateway GATEWAY_PADRAO                            //define gateway de ultimo recurso
+    ip ssh version 2                                             //ativa ssh versão 2
+    line con 0                                                   //configura console
+      password SENHA_CONSOLE                                     //senha console
+      login
+      logging synchronous                                        //sincroniza o console
+      exit
+    line vty PORTA_VTY                                           //configura telnet
+      password SENHA_VTY                                         //senha para telnet
+      login
+      exit
+    vlan VLAN_ID                                                 //cria vlan
+      name VLAN_NAME                                             //define o nome para a vlan
+      exit
+    interface ID_INTERFACE                                       //configura interface (não trunk)
+      switchport mode access                                     //ativa modo access da porta
+      switchport access vlan VLAN_ID                             //ativa a vlan na interface escolhida
+      no shutdown                                                //ativa interface
+      exit
+    interface ID_INTERFACE                                       //configura interface (trunk)
+      switchport mode trunk                                      //ativa modo trunk da porta
+      switchport trunk allowed vlan VLAN_ID,VLAN_ID              //ativa trunk para as vlans informadas, porém, terá que informar qual é a vlan nativa
+                                                                   //Se não ativa, tadas as redes podem passar
+      switchport trunk native vlan VLAN_ID                       //especifica qual é a vlan nativa (opcional)
+      no shutdown                                                //ativa interface
+      exit
+    interface vlan VLAN_ID                                       //configura a vlan escolhida
+      ip address IP_SWITCH MASK_REDE                             //define ip para a interface da vlan
+      no shutdown                                                //ativa vlan
+      exit
+    end
+  wr
+    
+
+NOME_HOST:      nome host (S0)
+NAME_DOMAIN:    nome do dominio (teste.com)
+CHAVE_RSA:      tamanho da chave gerada (1024)
+SENHA_CONFG:    senha inicio ssh
+NAME_USER:      nome usuário ssh
+SENHA_USER:     senha usuário ssh
+BANNER_LOGIN:   banner enable
+GATEWAY_PADRAO: gateway de ultimo recurso
+SENHA_CONSOLE:  senha console
+PORTA_VTY:      ativa telnet para as portas... (0 10)
+SENHA_VTY:      senha telnet
+VLAN_ID:        id da vlan (99)
+VLAN_NAME:      nome vlan (vlan99)
+ID_INTERFACE:   interface (gigabitEthernet 0/1)
+IP_SWITCH:      ip da rede (192.168.0.1)
+MASK_REDE:      mascara da rede (255.255.255.0)

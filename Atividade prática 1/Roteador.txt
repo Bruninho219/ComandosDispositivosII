@@ -1,0 +1,28 @@
+enable
+  configute terminal
+    no ip domain-lookup
+    hostname Roteador_01
+    
+    interface f0/0.10
+      encapsulation dot1q 10
+      ip address 10.0.10.1 255.255.255.0
+      exit
+      
+    interface f0/0.20
+      encapsulation dot1q 20
+      ip address 10.0.20.1 255.255.255.0
+      exit
+    
+    interface f0/0.30
+      encapsulation dot1q 30
+      ip address 10.0.30.1 255.255.255.0
+      exit
+    
+    interface f0/0.99
+      encapsulation dot1q 99
+      ip address 10.0.0.1 255.255.255.0
+      exit
+    
+    interface f0/0
+      no shutdown
+      exit
