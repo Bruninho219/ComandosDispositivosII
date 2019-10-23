@@ -1,0 +1,27 @@
+enable
+  configure terminal 
+    interface range fe 0/1 -2
+      channel-group 1 mode actve
+      exit
+	  
+    interface port-channel 1
+	  swi port mode trunk
+	  swi port mode trunk allowed vlan ID_VLAN
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
