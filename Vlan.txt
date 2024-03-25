@@ -1,6 +1,7 @@
 enable
   configute terminal
     no ip domain-lookup                                          //COMANDO DE DEUS
+    no vlan VLAN_ID_A-VLAN_ID_B                                  //remover vlans das IDs de A até B
     vlan VLAN_ID                                                 //cria vlan
       name VLAN_NAME                                             //define o nome para a vlan
       exit
